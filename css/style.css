@@ -1,0 +1,30 @@
+html{
+    font-family: 'Poor Story', cursive;
+}
+
+h1{
+    font-weight: 400;
+    font-size: 2em;
+}
+
+h2{
+    font-weight: 400;
+    font-size: 1.8em;
+}
+
+h3{
+    font-weight: 400;
+    font-size: 1.6em;
+}
+
+div{
+    border: 3px solid #FFB4A2;
+}
+
+.container{
+    background-color: #B5838D;
+}
+
+#nome-empresa{
+    color: #E5989B;
+}
