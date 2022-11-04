@@ -1,4 +1,5 @@
 <?php
+    include "aula2.php";
     $premio = 1547.90;
 ?>
 <!DOCTYPE html>
@@ -26,6 +27,12 @@
             <td>Mayara</td>
             <td>2185-9231</td>
             <td><?php echo($premio * 0.28); ?></td>
+        </tr>
+        <tr>
+            <td>1285</td>
+            <td><?php echo($nome);?></td>
+            <td>2185-9252</td>
+            <td><?php echo($premio * 0.7); ?></td>
         </tr>
     </table>
 
