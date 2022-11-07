@@ -1,4 +1,7 @@
+@import url(reset.css);
+
 html{
+    margin-left: 10px;
     font-family: 'Poor Story', cursive;
 }
 
@@ -27,4 +30,24 @@ div{
 
 #nome-empresa{
     color: #E5989B;
+}
+
+.tabelinha th, td{
+    border: 0.5px solid #B5838D;
+}
+
+.tabelinha th,td{
+    padding: 10px;
+}
+
+.tabelinha{border: 2px solid #FFB4A2;}
+th{font-weight: 700;}
+
+input{margin-bottom: 10px;}
+
+#btn-enviar{margin-bottom: 20px;}
+
+button{
+    background-color: #B5838D;
+    font-family: 'Poor Story', cursive;
 }

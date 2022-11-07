@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-    <head>
-        <!-- <meta http-equiv="refresh" content="1"> -->
-    </head>
-</html>
-
 <?php
 
 // "/* */" Comentário de bloco
@@ -83,6 +76,7 @@ echo('<br>');
 for ($i=1; $i < 11; $i++) {
     echo($n.' x '.$i." = ".($i*$n)."<br>");
 }
+echo('<br>');
 $nota = array(9,8,7,4);
 
 for ($i=0; $i < 4; $i++) {
@@ -93,4 +87,68 @@ for ($i=0; $i < 4; $i++) {
 // Eu uso a estrutura WHILE quando eu não conheço o limite.
 
 // Final - Estruturas de repetição
+
+// Inicio - Desclaração de uso de matrizes
+
+$pessoas = array(
+    '98H47O'=>(['Well', 'Professor']), 
+    '25P45F'=>(['Paloma', 'Castro']), 
+    '36K89L'=>(['Ellen', 'Vieira']), 
+    '10M56T'=>(['Helen', 'Targino'])
+);
+
+// Final - Desclaração de uso de matrizes
+
+if (isset($_GET['enviar'])){ // Se o usuário clicar no botão
+    $id_frm = $_GET['id'];
+    $nome_frm = $_GET['nome'];
+    $sobre_frm = $_GET['sobrenome'];
+    $pessoas += [$id_frm => ([$nome_frm, $sobre_frm])];
+}
+
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <!-- <meta http-equiv="refresh" content="1"> -->
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <br>
+        <form action="#" method="get">
+            <label for="id">
+                ID
+                <input type="text" name="id" placeholder="Entre com o ID." required>
+            </label><br>
+            <label for="nome">
+                Nome
+                <input type="text" name="nome" required>
+            </label><br>
+            <label for="sobrenome">
+                Sobrenome
+                <input type="text" name="sobrenome">
+            </label><br>
+            <button type="submit" name="enviar" id="btn-enviar">Enviar</button>
+        </form>
+        <table class="tabelinha">
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Sobrenome</th>
+            <!-- <th>E-Mail</th> -->
+            <tr>
+                <td>23A28Y</td>
+                <td>Mayara</td>
+                <td>Raisa</td>
+                <!-- <td>nath@gmail.com</td> -->
+            </tr>
+            <?php foreach ($pessoas as $id => $nome) { ?>
+                <tr>
+                    <td><?php echo($id);?></td>
+                    <td><?php echo($nome[0]);?></td>
+                    <td><?php echo($nome[1]);?></td>
+                </tr>
+            <?php } ?>
+        </table>
+    </body>
+</html>
