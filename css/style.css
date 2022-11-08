@@ -48,6 +48,6 @@ input{margin-bottom: 10px;}
 #btn-enviar{margin-bottom: 20px;}
 
 button{
-    background-color: #B5838D;
+    /* background-color: #B5838D; */
     font-family: 'Poor Story', cursive;
 }
