@@ -6,4 +6,9 @@ function parcelar(float $taxa, int $parcelas=1): float
 
     // return ($capital+$taxa)*$parcelas;
 }
+
+function dataTexto (DateTime $data){
+    $intervalo = $data->diff(new DateTime());
+    return $intervalo->format('%y anos, %m meses e %d dias');
+}
 ?>
