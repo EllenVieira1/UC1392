@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('config.php');
 include('funcoes.php');
 
@@ -8,17 +8,17 @@ $coeficiente = 0.0;
 if(isset($_POST['calcular']))
 {
     $capital = $_POST['capital'];
-    $taxa = $_POST['taxa'];
+    $taxa    = $_POST['taxa'];
     $parcela = $_POST['parcela'];
     $coeficiente = parcelar(floatval($taxa), intval($parcela));
-
+print_r($_POST);
     $data = date('d/m/Y');
     $dias = 30;
-    for ($i=0; $i < $parcela; $i++) {
-        
+    for ($i=0; $i < $parcela; $i++) { 
+        $parcelas[$i] = [($i+1),($coeficiente*floatval($capital)),date($data,strtotime('+30days'))];
+        $dias += 30; 
     }
-
-    $parcelas = ([$capital, $taxa, $parcela,($coeficiente*$capital)]);
+    print_r($parcelas);
 }
 
 ?>
@@ -33,22 +33,23 @@ if(isset($_POST['calcular']))
 <body>
 
     <form action="#" method="post">
-        <input type="text" name="capital" placeholder="Capital (R$)...">
-        <input type="text" name="taxa" placeholder="Taxa (%)...">
-        <input type="text" name="parcela" placeholder="Parcelas (10)...">
+        <input type="text" name="capital" placeholder="Capital (R$)..."><br>
+        <input type="text" name="taxa" placeholder="Taxa (%)..."><br>
+        <input type="text" name="parcela" placeholder="Parcelas (1)..."><br>
         <button type="submit" name="calcular">Calcular</button>
     </form>
     <br><hr>
-    <?php if(count($parcelas)>0){ ?> 
-        <h3>Valor da parcela: R$ <?php echo $capital; ?></h3>
-        <h3>Taxa de juro: <?php echo $capital; ?> %</h3> 
-        <h3>Parcelas: <?php echo $parcela; ?> meses</h3> 
-     <?php
+    <?php if(count($parcelas)>0){?>
+        <h4>Valor da Capital: R$ <?php echo $capital; ?></h4>
+        <h4>Taxa de juro: <?php echo $taxa; ?> %</h4>
+        <h4>Parcelas: <?php echo $parcela; ?> meses</h4>
+    <?php 
         foreach ($parcelas as $valores) {
             ?>
-                <h4><?php echo($valores[0]." R$ ". srtval($valores[1])." - ".strval($valores[2]));?></h4>
+                <h4><?php echo($valores[0]." R$ ". strval($valores[1])." - ".strval($valores[2]));?></h4>
+            <?php
         }
     } ?>
-    
+
 </body>
 </html>
