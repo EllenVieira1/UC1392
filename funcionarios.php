@@ -1,7 +1,7 @@
 <?php 
 include 'conecta.php';
 
-// Cria a consulta sql
+// Criando consulta SQL
 $consulta = "select * from funcionario where demissao is null";
 
 // Traz as listas completa dos dados

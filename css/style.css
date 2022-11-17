@@ -20,10 +20,6 @@ h3{
     font-size: 1.6em;
 }
 
-div{
-    border: 3px solid #FFB4A2;
-}
-
 .container{
     background-color: #B5838D;
 }
@@ -50,4 +46,8 @@ input{margin-bottom: 10px;}
 button{
     /* background-color: #B5838D; */
     font-family: 'Poor Story', cursive;
+}
+
+.formulario{
+    background-color: #dba3ae;
 }
