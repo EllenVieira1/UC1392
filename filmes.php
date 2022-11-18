@@ -123,6 +123,7 @@ if(isset($_POST['enviar'])) // Inserir ou Alterar
         <tbody>
             <?php do { ?>
                 <tr>
+                    <td hidden><?php echo $row['cod_cliente'];?></td>
                     <td><?php echo $row['titulo'];?></td>
                     <td><?php echo $row['sinopse'];?></td>
                     <td><?php echo $row['cod_filme'];?></td>
@@ -132,7 +133,7 @@ if(isset($_POST['enviar'])) // Inserir ou Alterar
                     <td><?php echo $row['preco'];?></td>
                     <td><?php echo $row['cod_classificacao'];?></td>
                 </tr>
-            <?php } while ($row = $lista->fetch());?>
+            <?php } while ($row = $lista->fetch())?>
         </tbody>
     </table>
 </body>
