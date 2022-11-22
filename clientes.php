@@ -2,7 +2,7 @@
 include 'conecta.php';
 
 // Criando consulta SQL
-$consultaSql = "SELECT * FROM cliente order by nome, cod_cliente asc";
+$consultaSql = "SELECT * FROM cliente where deleted is null order by nome, cod_cliente asc";
 $consultaSqlArq = "SELECT * FROM cliente where deleted is not null order by nome, cod_cliente asc";
 
 // Buscando e listando os dados da tabela (completa)
@@ -39,7 +39,7 @@ if(isset($_GET['codarq']))
 {
     $queryArq = "update cliente set deleted = now() where cod_cliente=".$_GET['codarq'];
     $cliente = $pdo->query($queryArq)->fetch();
-    header('location: cliente.php');
+    header('location: clientes.php');
 }
 
 // Restaurar o cliente
@@ -47,7 +47,7 @@ if(isset($_GET['codres']))
 {
     $queryRes = "update cliente set deleted = null where cod_cliente=".$_GET['codres'];
     $cliente = $pdo->query($queryRes)->fetch();
-    header('location: cliente.php');
+    header('location: clientes.php');
 }
 
 // Remover definitivamente (LGPD)
@@ -55,7 +55,7 @@ if(isset($_GET['codexc']))
 {
     $queryExc = "delete from cliente where cod_cliente=".$_GET['codexc'];
     $cliente = $pdo->query($queryExc)->fetch();
-    header('location: cliente.php');
+    header('location: clientes.php');
 }
 
 if(isset($_POST['enviar'])) // Inserir ou Alterar
@@ -76,7 +76,7 @@ if(isset($_POST['alterar']))
     $cpf = $_POST['cpf'];
     $updateSql = "update cliente set nome = '$nome', cpf='$cpf' where cod_cliente = $cod";
     $resultado = $pdo->query($updateSql);
-    header('location: cliente.php');
+    header('location: clientes.php');
 }
 
 
@@ -124,7 +124,8 @@ if(isset($_POST['alterar']))
     </section>
 
     <br>
-
+    <h3>Clientes ativados</h3>
+    <br>
     <table>
         <thead>
             <th hidden>Cod</th>
@@ -145,7 +146,9 @@ if(isset($_POST['alterar']))
             <?php } while ($row = $lista->fetch())?>
         </tbody>
     </table>
+    <br>
     <h3>Clientes arquivados</h3>
+    <br>
     <table>
         <thead>
             <th hidden>Cod</th>

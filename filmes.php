@@ -26,11 +26,11 @@ if(isset($_POST['enviar'])) // Inserir ou Alterar
     $titulo = $_POST['titulo'];
     $sinopse = $_POST['sinopse'];
     $lancamento = $_POST['lancamento'];
-    $origem = $_POST['origem'];
+    $pais_origem = $_POST['pais_origem'];
     $duracao = $_POST['duracao'];
     $preco = $_POST['preco'];
-    $classificacao = $_POST['classificacao'];
-    $consulta = "insert filme (titulo, sinopse, lancamento, origem, duracao, preco, cod_classificacao) values ('$titulo','$sinopse','$lancamento'.'$origem','$duracao','$preco','$classificacao')";
+    $cod_classificacao = $_POST['cod-classificacao'];
+    $consulta = "insert filme (titulo, sinopse, lancamento, pais_origem, duracao, preco, cod_classificacao) values ('$titulo','$sinopse','$lancamento','$pais_origem','$duracao','$preco','$cod_classificacao')";
     $resultado = $pdo->query($consulta);
     $_POST['enviar'] = null;
     header('location: filmes.php');
@@ -43,7 +43,8 @@ if(isset($_POST['enviar'])) // Inserir ou Alterar
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Filmes (<?php echo $num_rows ?>)</title>
     <!-- <style>
         td{
@@ -53,56 +54,57 @@ if(isset($_POST['enviar'])) // Inserir ou Alterar
 </head>
 <body>
 <section class="formulario">
-        <form action="#" method="post">
+        <form action="#" method="post" class="form-control">
             <div hidden>
                 <label for="cod-filme">
                     Código
                     <input type="text" name="cod-filme">
                 </label>
             </div>
-            <div>
+            <div class="mb-3">
                 <label for="titulo">
                     Título
                     <input type="text" name="titulo" required>
                 </label>
             </div>
-            <div>
+            <div class="mb-3">
                 <label for="sinopse">
                     Sinopse
                     <input type="textarea" name="sinopse" required>
                 </label>
             </div>
-            <div>
+            <div class="mb-3">
                 <label for="lancamento">
                     Lançamento
                     <input type="text" name="lancamento" required>
                 </label>
             </div>
-            <label for="origem">
+            <div class="mb-3">
+            <label for="pais_origem">
                     País de Origem
-                    <input type="text" name="origem" required>
+                    <input type="text" name="pais_origem" required>
                 </label>
             </div>
-            <div>
+            <div class="mb-3">
             <label for="duracao">
                     Duração
                     <input type="text" name="duracao" required>
                 </label>
             </div>
-            <div>
+            <div class="mb-3">
             <label for="preco">
                     Preço
                     <input type="text" name="preco" required>
                 </label>
             </div>
-            <div>
-            <label for="classificacao">
+            <div class="mb-3">
+            <label for="cod-classificacao">
                     Classificação
-                    <input type="text" name="classificacao" required>
+                    <input type="text" name="cod-classificacao" required>
                 </label>
             </div>
-            <div>
-                <button type="submit" name="enviar">Enviar</button>
+            <div class="mb-3">
+                <button type="submit" name="enviar" class="btn btn-outline-danger">Enviar</button>
             </div>
         </form>
     </section>
@@ -123,7 +125,7 @@ if(isset($_POST['enviar'])) // Inserir ou Alterar
         <tbody>
             <?php do { ?>
                 <tr>
-                    <td hidden><?php echo $row['cod_cliente'];?></td>
+                    <td hidden><?php echo $row['cod_filme'];?></td>
                     <td><?php echo $row['titulo'];?></td>
                     <td><?php echo $row['sinopse'];?></td>
                     <td><?php echo $row['cod_filme'];?></td>
