@@ -3,7 +3,7 @@ include 'conecta.php';
 
 // Criando consulta SQL
 $consultaSql = "select * from vw_filme_class";
-$consultaSqlArq = "SELECT * FROM filme where deleted is not null order by nome, cod_filme asc";
+$consultaSqlArq = "SELECT * FROM filme where deleted is not null order by titulo, cod_filme asc";
 
 
 // Traz as listas completa dos dados
