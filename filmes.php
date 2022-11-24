@@ -2,7 +2,7 @@
 include 'conecta.php';
 
 // Criando consulta SQL
-$consultaSql = "select * from vw_filme_class";
+$consultaSql = "SELECT * FROM vw_filme_class";
 $consultaSqlArq = "SELECT * FROM filme where deleted is not null order by titulo, cod_filme asc";
 
 
@@ -22,11 +22,11 @@ $num_rows = $lista->rowCount();
 // Busca filme por código
 $titulo = "";
 $sinopse = "";
-$lancamento ="";
-$pais_origem ="";
-$duracao ="";
-$preco ="";
-$cod_classificacao ="";
+$lancamento = "";
+$pais_origem = "";
+$duracao = "";
+$preco = "";
+$cod_classificacao = "";
 $cod = 0;
 
 // echo 'A consulta retornou <strong>'.$num_linhas.'</strong> Filmes <br>';
@@ -37,9 +37,8 @@ $cod = 0;
 //     echo $linha['titulo'].' - '.$linha['lancamento'].'<br>';
 // } while ($linha = $lista->fetch());
 
-if(isset($_GET['codedit']))
-{
-    $queryEdit = "SELECT * FROM filme where cod_filme=".$_GET['codedit'];
+if (isset($_GET['codedit'])) {
+    $queryEdit = "SELECT * FROM filme where cod_filme=" . $_GET['codedit'];
     $filme = $pdo->query($queryEdit)->fetch();
     $cod = $_GET['codedit'];
     $titulo = $filme['titulo'];
@@ -48,33 +47,30 @@ if(isset($_GET['codedit']))
     $pais_origem = $filme['pais_origem'];
     $duracao = $filme['duracao'];
     $preco = $filme['preco'];
-    $cod_classificacao = $filme['class'];
+    $cod_classificacao = $filme['cod_classificacao'];
     // echo "<h1>Você vai editar o filme ".$_GET['codedit']."</h1>";
 }
 
-// Comando para incluir campo deleted na tabela cliente
+// Comando para incluir campo deleted na tabela filme
 // Alter table filme add deleted datetime null;
 
 // Código para arquivar(excluir)
-if(isset($_GET['codarq']))
-{
-    $queryArq = "update filme set deleted = now() where cod_filme=".$_GET['codarq'];
+if (isset($_GET['codarq'])) {
+    $queryArq = "update filme set deleted = now() where cod_filme=" . $_GET['codarq'];
     $filme = $pdo->query($queryArq)->fetch();
     header('location: filmes.php');
 }
 
 // Restaurar o filme
-if(isset($_GET['codres']))
-{
-    $queryRes = "update filme set deleted = null where cod_filme=".$_GET['codres'];
+if (isset($_GET['codres'])) {
+    $queryRes = "update filme set deleted = null where cod_filme=" . $_GET['codres'];
     $filme = $pdo->query($queryRes)->fetch();
     header('location: filmes.php');
 }
 
 // Remover definitivamente (LGPD)
-if(isset($_GET['codexc']))
-{
-    $queryExc = "delete from filme where cod_filme=".$_GET['codexc'];
+if (isset($_GET['codexc'])) {
+    $queryExc = "delete from filme where cod_filme=" . $_GET['codexc'];
     $filme = $pdo->query($queryExc)->fetch();
     header('location: filmes.php');
 }
@@ -94,8 +90,7 @@ if (isset($_POST['enviar'])) // Inserir ou Alterar
     header('location: filmes.php');
 }
 
-if(isset($_POST['alterar']))
-{
+if (isset($_POST['alterar'])) {
     // Altera os dados do cliente
     $cod = $_POST['cod-filme'];
     $titulo = $_POST['titulo'];
@@ -105,7 +100,7 @@ if(isset($_POST['alterar']))
     $duracao = $_POST['duracao'];
     $preco = $_POST['preco'];
     $cod_classificacao = $_POST['class'];
-    $updateSql = "update cliente set titulo ='$titulo', sinopse='$sinopse', lancamento='$lancamento', pais_origem='$pais_origem', duracao='$duracao', preco='$preco', cod_classificacao='$cod_classificacao' where cod_filme = $cod";
+    $updateSql = "update filme set titulo ='$titulo', sinopse='$sinopse', lancamento='$lancamento', pais_origem='$pais_origem', duracao='$duracao', preco='$preco', cod_classificacao='$cod_classificacao' where cod_filme = $cod";
     $resultado = $pdo->query($updateSql);
     header('location: filmes.php');
 }
@@ -142,9 +137,9 @@ if(isset($_POST['alterar']))
             </div>
         </div>
     </section>
-
     <br>
-
+    <h3 class="text-center">Filmes Ativados</h3>
+    <br>
     <table class="table table-secondary table-striped table-hover">
         <thead>
             <th hidden>ID</th>
@@ -155,6 +150,7 @@ if(isset($_POST['alterar']))
             <th>Duração</th>
             <th>Preço</th>
             <th>Classificação</th>
+            <th colspan="2" class="text-center">Ações</th>
         </thead>
         <tbody>
             <?php do { ?>
@@ -167,8 +163,44 @@ if(isset($_POST['alterar']))
                     <td><?php echo $row['duracao']; ?></td>
                     <td><?php echo $row['preco']; ?></td>
                     <td><?php echo $row['classificacao']; ?></td>
+                    <td><a type="button" class="btn btn-primary" href="filmes.php?codedit=<?php echo $row['cod_filme']; ?>">Editar</a></td>
+                    <td><a type="button" class="btn btn-primary" href="filmes.php?codarq=<?php echo $row['cod_filme']; ?>">Arquivar</a></td>
                 </tr>
             <?php } while ($row = $lista->fetch()) ?>
+        </tbody>
+    </table>
+    <br>
+    <h3 class="text-center">Filmes Arquivados</h3>
+    <br>
+    <table class="table table-secondary table-striped table-hover">
+        <thead>
+            <th hidden>ID</th>
+            <th>Título</th>
+            <th>Sinopse</th>
+            <th>Lançamento</th>
+            <th>País de Origem</th>
+            <th>Duração</th>
+            <th>Preço</th>
+            <th>Classificação</th>
+            <th>Arquivado em:</th>
+            <th colspan="2" class="text-center">Ações</th>
+        </thead>
+        <tbody>
+            <?php do { ?>
+                <tr>
+                    <td hidden><?php echo $rowArq['cod_filme']; ?></td>
+                    <td><?php echo $rowArq['titulo']; ?></td>
+                    <td><?php echo $rowArq['sinopse']; ?></td>
+                    <td><?php echo $rowArq['lancamento']; ?></td>
+                    <td><?php echo $rowArq['pais_origem']; ?></td>
+                    <td><?php echo $rowArq['duracao']; ?></td>
+                    <td><?php echo $rowArq['preco']; ?></td>
+                    <td><?php echo $rowArq['cod_classificacao']; ?></td>
+                    <td><?php echo $rowArq['deleted']; ?></td>
+                    <td><a type="button" class="btn btn-primary" href="filmes.php?codres=<?php echo $rowArq['cod_filme']; ?>">Restaurar</a></td>
+                    <td><a type="button" class="btn btn-primary" href="filmes.php?codexc=<?php echo $rowArq['cod_filme']; ?>">Excluir</a></td>
+                </tr>
+            <?php } while ($rowArq = $listaArq->fetch()) ?>
         </tbody>
     </table>
 
@@ -225,7 +257,7 @@ if(isset($_POST['alterar']))
                             </label>
                         </div>
                         <div class="row mb-3">
-                            <label for="cod-classificacao">
+                            <label for="classificacao">
                                 Classificação
                                 <select name="class" id="" class="form-control">
                                     <?php do { ?>
@@ -235,7 +267,8 @@ if(isset($_POST['alterar']))
                             </label>
                         </div>
                         <div class="row mb-3">
-                            <button type="submit" name="enviar" class="btn btn-outline-info">Enviar</button>
+                            <!-- Usamos o if ternário para trocar texto do botão -->
+                            <button class="btn btn-outline-info" type="submit" name="<?php echo $cod < 1 ? 'enviar' : 'alterar'; ?>"><?php echo $cod < 1 ? 'Enviar' : 'Alterar'; ?></button>
                         </div>
                     </form>
                 </div>
