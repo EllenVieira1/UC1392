@@ -77,7 +77,6 @@ if (isset($_POST['alterar'])) {
     header('location: clientes.php');
 }
 
-
 ?>
 
 <!DOCTYPE html>
